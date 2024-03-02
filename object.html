@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Exercices complémentaires pour les leçons sur le JavaScript orienté objets</title>
+  </head>
+
+  <body>
+    <p>Pour cet exemple, vous aurez besoin d'utiliser la console JavaScript de votre navigateur, voir <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools">Les outils de développement d'un navigateur</a> pour plus d'informations).</p>
+
+  </body>
+
+    <script>
+      // dans Js tous est object 
+      // object liteeral 
+      //Dans cet exemple, l'objet est créé grâce à un objet littéral 
+      //: on écrit littéralement le contenu de l'objet pour le créer.
+      // On distinguera cette structure des objets instanciés
+      //C'est une pratique très courante de créer un objet en utilisant un objet littéral : par exemple, 
+      //quand on envoie une requête au serveur pour transférer des données vers une base de données.
+      // on accéde avec monObjet.nomDuMembre1 ou bien avec nomDuMembre1['valeurDuMembre1']
+      var monObjet = {
+        nomDuMembre1: valeurDuMembre1,
+        nomDuMembre2: valeurDuMembre2,
+        nomDuMembre3: valeurDuMembre3,
+      };
+      // crochet , ensemble cle valeur . la valeur peut etre tableau , function n'importe quoi 
+
+      //Le mot-clé this se réfère à l'objet courant dans lequel le code est écrit — dans notre cas, this est l'équivalent de personne
+
+
+      // constructor (function ) c'est un constructeur pour cérer des personne 
+      function Personne(prenom, famille, age, genre, interets) {
+        this.nom = {
+          'prenom': prenom,
+          'famille' : famille
+        };
+        this.age = age;
+        this.genre = genre;
+        this.interets = interets;
+        this.bio = function() {
+          // On définit une chaîne de caractères et on construit une partie qui sera
+          // toujours construite de la même façon.
+          let string = this.nom.prenom + ' ' + this.nom.famille + ' a ' + this.age + ' ans. ';
+          // On définit une variable qui contiendra le pronom pour la deuxième
+          // phrase
+          let pronom;
+
+          // Selon le genre, on prend le pronom approprié
+          if(this.genre === 'homme' || this.gender === 'Homme' || this.gender === 'h' || this.gender === 'H') {
+            pronom = 'Il aime ';
+          } else if(this.genre === 'femme' || this.gender === 'Femme' || this.gender === 'f' || this.gender === 'F') {
+            pronom = 'Elle aime ';
+          } else {
+            pronom = this.nom.prenom + ' aime ';
+          }
+
+          // On ajoute le pronom à la fin de la chaîne de caractères
+          string += pronom;
+
+          // On utilise une autre structure conditionnelle pour construire la
+          // la dernière partie de la phrase selon le nombre d'intérêts         
+          if(this.interets.length === 1) {
+            string += this.interets[0] + '.';
+          } else if(this.interets.length === 2) {
+            string += this.interets[0] + ' et ' + this.interets[1] + '.';
+          } else {
+            // S'il y a plus de deux intérêts, on boucle pour les parcourir
+            // et on les ajoute à la chaîne de caractères principale en les
+            // séparant par une virgule à l'exception du dernier qui sera
+            // précédé d'un et et suivi d'un point
+            for(let i = 0; i < this.interets.length; i++) {
+              if(i === this.interets.length - 1) {
+                string += 'et ' + this.interets[i] + '.';
+              } else {
+                string += this.interets[i] + ', ';
+              }
+            }
+          }
+
+          // Une fois la chaîne construite, on l'affiche avec alert()
+          alert(string);
+        };
+        this.salutation = function() {
+          alert('Bonjour ! Je m\'appelle ' + this.nom.prenom + '.');
+        };
+      };
+
+      let personne1 = new Personne('Jean', 'Biche', 32, 'neutre', ['musique', 'tricot', 'boxe']);
+      // prototype 
+
+      let personne2 = Object.create(personne1);
+      // En réalité create() se contente de créer un nouvel objet à partir d'un prototype spécifique. Dans cet exemple, 
+      // personne2 est créé à partir de personne1 qui agit en tant que prototype. Vous pouvez le vérifier via :
+    
+
+
+
+      // constructor is a function
+      let personne3 = new personne1.constructor(
+        "Karen",
+        "Stephenson",
+        26,
+        "femme",
+        ["jouer de la batterie", "escalade"],
+      );
+
+      // définir le constructeur fonction (un object)
+
+       function Personne(prenom, famille, age, genre, interets) {
+          // définition des attributs et des méthodes
+        }
+        // créer des objet ons  ebasant sur le cnstrcut 
+        let personne4 = new Personne("Tammi", "Smith", 32, "neutre", [
+          "musique",
+          "ski",
+          "kickboxing",
+        ]);
+        // rajouter ds focntion au prototype du constructeur qui est un  object déja 
+        // comme ca cette fonction sera acccesbile par tous les object instancé par le ce constructer 
+        // si on fait personne4.aurevoir 
+        // le prototye on rajoute la dessus les fonction qui sertont hérité automatiqement les instances 
+        // ils seront accessible par chaine de prototype (pas copié dans les instance mais accesbile depuis le prototype 
+        // de constructeur  )
+        //Cela nous permet de bénéficier d'un système extensible de manière simple et élégante.
+
+        
+        Personne.prototype.aurevoir = function () {
+          alert(this.nom.prenom + " est sorti. Au revoir !");
+
+
+
+          // Constructeur avec définition des attributs
+          function Test(a, b, c, d) {
+            // définition des attributs
+          };
+          // Définition de la première méthode on les mis dans le prototye de object
+          // l'attribut prototype et utilisé  pour ajouter des méthodes au constructeur.
+
+          Test.prototype.x = function() { console.log('ok') }
+
+          // Définition de la seconde méthode
+
+          Test.prototype.y = function() { console.log('ok1')}
+};
+    </script>
+</html>

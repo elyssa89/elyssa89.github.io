@@ -1,0 +1,33 @@
+html, body {
+  margin: 0;
+}
+
+html {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  height: inherit;
+}
+
+h1 {
+  font-size: 2rem;
+  letter-spacing: -1px;
+  position: absolute;
+  margin: 0;
+  top: -4px;
+  left: 5px;
+
+  color: black;
+  text-shadow: 0 0 4px white;
+}
+
+#counter {
+    position: absolute;
+    margin: 0;
+    top: 35px;
+    right: 5px;
+    color: rgba(0, 9, 0, 0.667);
+  }
