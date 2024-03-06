@@ -1,0 +1,126 @@
+
+<!doctype html>
+<html>
+<head>
+    <title>Example Domain</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type="text/css">
+    body {
+        background-color: #f0f0f2;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        
+    }
+    div {
+        width: 600px;
+        margin: 5em auto;
+        padding: 2em;
+        background-color: #fdfdff;
+        border-radius: 0.5em;
+        box-shadow: 2px 3px 7px 2px rgba(0,0,0,0.02);
+    }
+    a:link, a:visited {
+        color: #38488f;
+        text-decoration: none;
+    }
+    @media (max-width: 700px) {
+        div {
+            margin: 0 auto;
+            width: auto;
+        }
+    }
+    </style>    
+</head>
+
+<body>
+<div>
+    <h1>Example Domain</h1>
+    <p>This domain is for use in illustrative examples in documents. You may use this
+    domain in literature without prior coordination or asking for permission.</p>
+    <p><a href="https://www.iana.org/domains/example">More information...</a></p>
+    <p id="id1"> </p>
+
+    <p id="id2"> </p>
+</div>
+
+
+<script>
+//     Voici ce qu'on fait :
+
+// On appelle l'API fetch() et on affecte la valeur de retour à la variable fetchPromise.
+// Juste après, on affiche la variable fetchPromise dans la console. Cela devrait 
+//afficher quelque chose comme : Promise { <state>: "pending" }, qui indique qu'on a un objet Promise dont 
+//l'état est "pending" (c'est-à-dire, en cours). Cet état indique que l'opération de récupération du fichier est toujours en cours.
+// On passe une fonction de gestion à la méthode then() de la promesse. Lorsque l'opération de récupération a réussi (si elle a réussi), la promesse appellera le gestionnaire en lui passant un objet Response, qui contient la réponse du serveur.
+// On affiche un message dans la console indiquant que la requête a été lancée.
+//fech prend en argument url , et retourne un bject promesse ou promise 
+// retoru de plusieur fonction ou API asynchrone est un promise un object qu'on peut définir documents
+// gestionnaire d'evénement pour event success , echec
+    const fetchPromise = fetch(
+    "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+    );
+
+    console.log(fetchPromise);
+
+    fetchPromise.then((reponse) => {
+        console.log(`Réponse reçue : ${reponse.status}`);
+        //Dans cet exemple, comme auparavant, on ajoute un gestionnaire à la promesse renvoyée par fetch()
+        //Dans cet exemple, comme auparavant, on ajoute un gestionnaire à la promesse renvoyée par fetch() grâce à then(). Dans cette version, le gestionnaire appelle response.json()
+        // puis passe un nouveau gestionnaire then() à la promesse renvoyée par response.json().
+        fetchPromise.then((reponse) => {
+            const jsonPromise = reponse.json();
+            jsonPromise.then((json) => {
+                console.log(json[0].name);
+            });
+        });
+        
+    });
+    console.log("Requête initiée…");
+    // version plus simple then retoune aussi un promise 
+        //https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Promises
+        //Ici, au lieu d'appeler le deuxième then() au sein du gestionnaire pour le premier then(), 
+        //on peut renvoyer la promesse renvoyée par json(), puis appeler le deuxième then() 
+    //     //sur cette valeur de retour
+    // fetchPromise
+    // .then((reponse) => {
+    //     return reponse.json();
+    // })
+    // .then((json) => {
+    //     console.log(json[0].name);
+    // })
+    // .catch((error) => {
+    //     console.error(`Impossible de récupérer les produits : ${error}`);
+    // });
+
+
+    // lancer toutes les promesses en même temps puis de recevoir une notification lorsqu'elles 
+    // ont toutes été tenues. La méthode Promise.all() est l'outil adéquat pour ça. 
+    // Elle prend comme argument un tableau de promesses et renvoie une seule promesse.
+
+    const fetchPromise1 = fetch(
+    "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+    );
+    const fetchPromise2 = fetch(
+    "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/not-found",
+    );
+    const fetchPromise3 = fetch(
+    "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json",
+    );
+
+    Promise.all([fetchPromise1, fetchPromise2, fetchPromise3])
+    .then((reponses) => {
+        for (const reponse of reponses) {
+        console.log(`${reponse.url} : ${reponse.status}`);
+        }
+    })
+    .catch((error) => {
+        console.error(`Erreur de récupération : ${error}`);
+    });
+    
+</script>
+</body>
+</html>
